@@ -1,0 +1,280 @@
+$form-spacing: rem-calc(16) !default;
+
+//labels
+$form-label-font-size: rem-calc(14) !default;
+$form-label-font-color: lighten(#000, 30%) !default;
+$input-font-size: rem-calc(14) !default;
+
+//fields
+$input-field-color: #fff;
+$input-border: 1px solid #c7c8c2;
+$input-focus-bg-color: lighten(#EFEFEF, 4%) !default;
+$input-focus-border-color: darken(#DDD, 10%) !default;
+$input-include-glowing-effect: false !default;
+
+//selects
+$select-bg-color: #fff;
+$select-hover-bg-color: #ebebeb !default;
+
+
+//prefix+postfix styles
+$input-prefix-bg: #FFF !default;
+$input-prefix-border-color: #DDD !default;
+$input-prefix-font-color: #DDD !default;
+$input-prefix-font-color-alt: #fff !default;
+
+
+// @MIXINS
+
+@mixin form-row-base {
+	.row {
+		margin: 0 ((-$form-spacing) / 2);
+		.column,
+		.columns { padding: 0 $form-spacing / 2; }
+
+		&.collapse {
+			margin: 0;
+			.column,
+			.columns { padding: 0; }
+		}
+	}
+	input.column,
+	input.columns,
+	textarea.column,
+	textarea.columns { padding-left: $form-spacing / 2; }
+}
+
+// @MIXIN
+@mixin form-element {
+	background-color: $input-field-color;
+	font-family: $body-font;
+	border: $input-border;
+	@include border-radius($form-radius);
+	@include box-shadow(inset -1px 2px 0px rgba(0,0,0,0.08));
+	color: rgba(0,0,0,0.75);
+	display: block;
+	font-size: 14px;
+	letter-spacing: 0.04em;
+	margin: 0 0 $form-spacing 0;
+	padding: $form-spacing / 2;
+	padding-left: 0.9em;
+	height: ($input-font-size + ($form-spacing * 2) - rem-calc(1));
+	width: 100%;
+	@include box-sizing(border-box);
+	@if $input-include-glowing-effect {
+		@include block-glowing-effect(focus,0.45s, $input-focus-border-color);
+	}
+	&:focus {
+		background: $input-focus-bg-color;
+			border-color: $input-focus-border-color;
+			outline: none;
+	}
+	&[disabled] { background-color: #ddd; }
+	&.gray_input {
+		background-color: #eaeaea;
+		&:focus {
+			background: #fff;
+		}
+	}
+}
+
+// @MIXIN
+@mixin form-label($alignment:false, $base-style:true) {
+	@if $base-style {
+		font-size: $form-label-font-size;
+		color: $form-label-font-color;
+		cursor: pointer;
+		display: block;
+		font-weight: 600;
+		line-height: 1.5;
+		margin-bottom: 0;
+		letter-spacing: 0.04em;
+		.hint {
+			color: #999;
+			font-weight: normal;
+			font-family: $body-font;
+			font-size: 0.9em;
+			letter-spacing: 0.04em;
+		}
+	}
+	@if $alignment == right {
+		float: none;
+		text-align: right;
+	}
+	@else if $alignment == inline {
+		margin: 0 0 $form-spacing 0;
+		padding: $form-spacing / 2 + rem-calc(2) 0;
+	}
+}
+
+@mixin fieldset {
+	border: 1px solid #ddd;
+	padding: rem-calc(20);
+	margin: rem-calc(18 0);
+	legend {
+		font-weight: bold;
+		background: #fff;
+		padding: rem-calc(0 3);
+		margin: 0;
+		margin-left: rem-calc(-3);
+	}
+}
+
+// @MIXIN
+@mixin form-error-color($color:$alert-color) {
+	border-color: $color;
+	background-color: rgba($color, 0.1);
+	&:focus {
+		background: $input-focus-bg-color;
+		border-color: $input-focus-border-color;
+	}
+}
+
+// @MIXIN
+@mixin form-error-color($color:$alert-color) {
+		border-color: $color;
+		border-width: 2px;
+		@include single-transition();
+	&:focus {
+		background: $input-focus-bg-color;
+		border-color: $input-focus-border-color;
+		border-width: 1px;
+	}
+}
+
+@mixin form-label-error-color($color:$alert-color) { color: $color; }
+
+// @MIXIN
+@mixin form-error-message($bg:$alert-color) {
+	display: block;
+	margin-top: 0.75em;
+	margin-bottom: $form-spacing;
+	font-size: rem-calc(12);
+	font-weight: 600;
+	color: $bg;
+	font-family: $body-font;
+	line-height: 1.1;
+}
+
+
+
+
+form { margin: 0 0 $form-spacing; }
+form .row { @include form-row-base; }
+label { 
+	@include form-label; 
+	&.right { @include form-label(right,false); }
+	&.inline { @include form-label(inline,false); }
+	small {
+		text-transform: capitalize;
+		color: lighten($form-label-font-color, 10%);
+	}
+}
+
+ select {
+	-webkit-appearance: none !important;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: center right 3%;
+	border: 1px solid #dad7d7;
+	padding: 0.6em 0.5em 0.5em 0.9em;
+	font-family: $body-font;
+	@include border-radius($form-radius);
+	line-height: 1em;
+	color: $body-font-color;
+	@include box-shadow(0 3px 0 #c7c8c2);
+	 background-image: url('data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iM3B4IiB2aWV3Qm94PSIwIDAgNiAzIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA2IDMiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIHBvaW50cz0iNS45OTIsMCAyLjk5MiwzIC0wLjAwOCwwICIvPjwvc3ZnPg==');
+	 background-image: url('/lib/images/svg/select.svg');
+	 background-repeat: no-repeat;
+	 background-size: 22px !important;
+	 background-position: 95% center;
+	&:hover {
+		background-color: $select-hover-bg-color;
+		border-color: $input-focus-border-color;
+	}
+	&:focus {
+		border-color: #DDD;
+		outline: none;
+	}
+	@media #{$medium-up} {
+		 font-size: 0.9em;
+	}
+}
+
+select::-ms-expand {
+	display:none;
+}
+
+@-moz-document url-prefix() {
+	select { background: $select-bg-color; }
+	select:hover { background: darken($select-bg-color, 3%); }
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	@include form-element;
+}
+			
+textarea { padding-top: .9em;}
+
+ textarea[rows] {
+		height: auto;
+ }
+
+select {
+	height: ($input-font-size + ($form-spacing * 2) - rem-calc(1));
+}
+
+input[type="file"],
+input[type="checkbox"],
+input[type="radio"],
+select {
+	margin: 0 0 $form-spacing 0;
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+	display: inline-block;
+	margin-left: $form-spacing * .5;
+	margin-right: $form-spacing;
+	margin-bottom: 0;
+	vertical-align: baseline;
+}
+
+input[type="file"] {
+	width:100%;
+}
+
+fieldset {
+	@include fieldset;
+}
+
+input.error,
+textarea.error {
+	margin-bottom: 0;
+	@include form-error-color;
+}
+
+label.error { @include form-label-error-color; }
+
+
+
+input[placeholder] { text-overflow: ellipsis; }
+::-moz-placeholder { text-overflow: ellipsis; } /* firefox 19+ */
+input:-moz-placeholder { text-overflow: ellipsis; }
+

@@ -1,0 +1,151 @@
+// @variables
+$button-tny: rem-calc(10) !default;
+$button-sml: rem-calc(12) !default;
+$button-med: rem-calc(14) !default;
+$button-lrg: rem-calc(18) !default;
+
+
+$button-font-color: #fff !default;
+$button-font-color-alt: #222 !default;
+$button-font-family: $body-font !default;
+$button-font-weight: 500 !default;
+
+
+// @MIXIN
+@mixin button-base($style:true, $display:inline-block) {
+	@if $style {
+		border: 0px solid transparent;
+		cursor: pointer;
+		font-family: $button-font-family;
+		font-weight: $button-font-weight;
+		line-height: normal;
+		margin: 0 0 rem-calc(20);
+		position: relative;
+		text-decoration: none;
+		text-align: center;
+		text-transform: uppercase;
+		letter-spacing: .15em;
+	}
+		@if $display { display: $display; }
+}
+
+@mixin button-size($padding:$button-med, $full-width:false, $is-input:false) {
+	@if $padding {
+		padding-top: $padding * .95;
+		padding-right: $padding * 1.5;
+		padding-bottom: $padding * .85;
+		padding-left: $padding * 1.5;
+		@if      $padding == $button-med { font-size: rem-calc(13); }
+		@else if $padding == $button-tny { font-size: rem-calc(8); }
+		@else if $padding == $button-sml { font-size: rem-calc(10); }
+		@else if $padding == $button-lrg { font-size: rem-calc(15); }
+	}
+
+	@if $full-width {
+		@if $padding {
+			padding-top: $padding;
+			padding-bottom: $padding;}
+		@else if $padding == false {
+			padding-top:0;
+			padding-bottom:0;
+		}
+		padding-right: 0;
+		padding-left: 0;
+		width: 100%;
+	}
+
+	@if $is-input == $button-lrg {
+		padding-top: $is-input + rem-calc(.75);
+		padding-bottom: $is-input + rem-calc(.75);
+		-webkit-appearance: none;
+		font-weight: $button-font-weight !important;
+	}
+	@else if $is-input {
+		padding-top: $is-input + rem-calc(.5);
+		padding-bottom: $is-input;
+		-webkit-appearance: none;
+		font-weight: $button-font-weight !important;
+	}
+}
+
+// @MIXIN
+@mixin button-style($bg:$primary-color, $radius:true, $disabled:false) {
+	@if $bg {
+		$bg-lightness: lightness($bg);
+		background-color: $bg;
+		border: 1px solid darken($bg, 5%);
+		@include box-shadow(0 3px rgba(black,.03), inset 0 1px rgba(white, .5));
+		&:hover,
+		&:focus  {
+			background-color: darken($bg,8%);
+			border-color: darken($bg, 10%);
+			@include box-shadow(0 1px rgba(black,.1), inset 0 1px rgba(white, .5));
+		}
+		&:hover {
+			outline: none;
+		}
+		// light buttons
+		@if $bg-lightness > 70% {
+			color: $button-font-color-alt !important;
+			&:hover,
+			&:focus { color: $button-font-color-alt; }
+		}
+		// dark buttons
+		@else {
+			color: $button-font-color !important;
+			&:hover,
+			&:focus { color: $button-font-color; background-color: lighten($bg,10%)}
+		}
+	}
+	@if $disabled {
+		cursor: default;
+		opacity: 0.5;
+		@include box-shadow(none);
+		&:hover,
+		&:focus { background-color: $bg; @include box-shadow(none); }
+	}
+	@if $radius == true { @include border-radius(4px); }
+	@else if $radius {  }
+}
+
+// @MIXIN
+@mixin button($padding:$button-med, $bg:$green, $radius:true, $full-width:false, $disabled:false, $is-input:false, $is-prefix:false) {
+	@include button-base;
+	@include button-size($padding, $full-width, $is-input);
+	@include button-style($bg, $radius, $disabled);
+}
+
+
+	button, .button {
+		@include button-base;
+		@include button-size;
+		@include button-style;
+		@include single-transition(background-color);
+		@include button-size($padding:$button-med, $full-width:false, $is-input:false);
+
+		&.secondary { @include button-style($bg:#d7d7d7); }
+
+		&.large  { @include button-size($padding:$button-lrg); }
+		&.small  { @include button-size($padding:$button-sml); }
+		&.tiny   { @include button-size($padding:$button-tny); }
+		&.expand { @include button-size($padding:null,$full-width:true); }
+
+		&.left-align  { text-align: left; text-indent: rem-calc(12); }
+		&.right-align { text-align: right; padding-right: rem-calc(12); }
+
+		&.radius { @include button-style($bg:false, $radius:true); }
+		&.round  { @include button-style($bg:false, $radius:8px); }
+
+		&.disabled, &[disabled] { @include button-style($bg:#ebebeb, $disabled:true);
+			&.secondary { @include button-style($bg:$secondary-color, $disabled:true); }
+      }
+	}
+
+	@media #{$medium-up} {
+		button, .button {
+			@include button-base($style:false, $display:inline-block);
+			@include button-size($padding:false, $full-width:false);
+		}
+	}
+
+
