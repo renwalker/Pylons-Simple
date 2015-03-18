@@ -49,8 +49,8 @@ $input-prefix-font-color-alt: #fff !default;
 	background-color: $input-field-color;
 	font-family: $body-font;
 	border: $input-border;
-	@include border-radius($form-radius);
-	@include box-shadow(inset -1px 2px 0px rgba(0,0,0,0.08));
+	border-radius: $form-radius;
+	box-shadow: inset -1px 2px 0px rgba(0,0,0,0.08);
 	color: rgba(0,0,0,0.75);
 	display: block;
 	font-size: 14px;
@@ -60,7 +60,7 @@ $input-prefix-font-color-alt: #fff !default;
 	padding-left: 0.9em;
 	height: ($input-font-size + ($form-spacing * 2) - rem-calc(1));
 	width: 100%;
-	@include box-sizing(border-box);
+	box-sizing: border-box;
 	@if $input-include-glowing-effect {
 		@include block-glowing-effect(focus,0.45s, $input-focus-border-color);
 	}
@@ -178,7 +178,7 @@ label {
 	background-position: center right 3%;
 	border: 1px solid #dad7d7;
 	padding: 0.6em 0.5em 0.5em 0.9em;
-	@include border-radius($form-radius);
+	border-radius: $form-radius;
 	line-height: normal;
 	color: $body-font-color;
 	&::-ms-expand {

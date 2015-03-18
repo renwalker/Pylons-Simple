@@ -148,9 +148,9 @@
 
 	// Add transitions to elements
 	@mixin single-transition($property:all, $speed:300ms, $ease:ease-in-out) {
-		@include transition-property($property);
-		@include transition-duration($speed);
-		@include transition-timing-function($ease);
+		transition-property: $property;
+		transition-duration: $speed;
+		transition-timing-function: $ease;
 	}
 
 	// We use this to do clear floats

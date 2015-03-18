@@ -74,12 +74,12 @@ $button-font-weight: 500 !default;
 		$bg-lightness: lightness($bg);
 		background-color: $bg;
 		border: 1px solid darken($bg, 5%);
-		@include box-shadow(0 3px rgba(black,.03), inset 0 1px rgba(white, .5));
+		box-shadow: 0 3px rgba(black,.03), inset 0 1px rgba(white, .5);
 		&:hover,
 		&:focus  {
 			background-color: darken($bg,8%);
 			border-color: darken($bg, 10%);
-			@include box-shadow(0 1px rgba(black,.1), inset 0 1px rgba(white, .5));
+			box-shadow: 0 1px rgba(black,.1), inset 0 1px rgba(white, .5);
 		}
 		&:hover {
 			outline: none;
@@ -100,11 +100,11 @@ $button-font-weight: 500 !default;
 	@if $disabled {
 		cursor: default;
 		opacity: 0.5;
-		@include box-shadow(none);
+		box-shadow: none;
 		&:hover,
-		&:focus { background-color: $bg; @include box-shadow(none); }
+		&:focus { background-color: $bg; box-shadow: none; }
 	}
-	@if $radius == true { @include border-radius(4px); }
+	@if $radius == true { border-radius: 4px; }
 	@else if $radius {  }
 }
 
