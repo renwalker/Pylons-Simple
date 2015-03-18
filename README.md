@@ -2,7 +2,6 @@
 
 This starter pack of CSS provides a base set of styles suitable for simple layouts, such as on landing pages. It uses the familiar class names of Pylons & Foundation but in a much smaller and more human-friendly set of Sass files.
 
-
 ## SCSS Files
 What's included in this responsive framework:
 * Normalize
@@ -13,6 +12,8 @@ What's included in this responsive framework:
 * Forms
 * Buttons
 * IE 8 - 9 fallbacks
+
+**Important!** This framework no longer uses Compass.  Run Autoprefixer to add in vendor prefixes if needed.
 
 ## Layout Helpers
 Some additional helper classes:
